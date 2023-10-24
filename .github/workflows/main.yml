@@ -19,8 +19,9 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v2
         with:
-          node-version: $(cat .nvmrc)
+          node-version-file: ".nvmrc"
           cache: "pnpm"
+          cache-dependency-path: "pnpm-lock.yaml"
       - name: Install dependencies using pnpm
         run: pnpm install --frozen-lockfile
       - name: Check Typescript using pnpm
