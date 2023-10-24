@@ -1,15 +1,18 @@
 name: Publish
-
 on:
-  pull_request:
-    types: [closed]
+  workflow_run:
+    workflows: ["CI"]
+    types:
+      - completed
+  push:
     branches:
-      - main
+      - "main"
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
-  build:
+  publish:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -19,21 +22,18 @@ jobs:
         with:
           version: latest
       - name: Setup node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version-file: ".nvmrc"
           cache: "pnpm"
           cache-dependency-path: "pnpm-lock.yaml"
       - name: Install dependencies using pnpm
         run: pnpm install --frozen-lockfile
-      - name: Check Typescript using pnpm
-        run: pnpm run lint
-      - name: Build package using pnpm
-        run: pnpm run build
       - name: Create release PR or publish
         id: changesets
         uses: changesets/action@v1
         with:
-          publish: pnpm run build
+          publish: pnpm run release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
