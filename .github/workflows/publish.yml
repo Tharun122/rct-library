@@ -1,8 +1,8 @@
-name: Build Package on PR Merge to Main
+name: Publish
 
 on:
   pull_request:
-    types: [closed]
+    types: [opened]
     branches:
       - main
 
