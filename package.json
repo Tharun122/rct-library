@@ -1,0 +1,33 @@
+{
+  "name": "effective-enigma",
+  "version": "0.0.1",
+  "description": "React component library",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsup index.ts --format cjs,esm --dts",
+    "lint": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tharun122/effective-enigma.git"
+  },
+  "keywords": [
+    "React",
+    "Rebass",
+    "Styled",
+    "Components"
+  ],
+  "author": "Tharun Reddy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Tharun122/effective-enigma/issues"
+  },
+  "homepage": "https://github.com/Tharun122/effective-enigma#readme",
+  "devDependencies": {
+    "@changesets/cli": "^2.26.2",
+    "tsup": "^7.2.0",
+    "typescript": "^5.2.2"
+  }
+}
